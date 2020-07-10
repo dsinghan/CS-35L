@@ -1,0 +1,9 @@
+Dhruv Singhania
+UID: 105125631
+
+1. I downloaded the Coreutils package using the link on the assignment webpage and tar -xf coreutils-8.29.tar.xz. I then verified the signature with the keyring using wget ftp://ftp.gnu.org/gnu/coreutils/coreutils-8.29.tar.xz.sig, wget https://ftp.gnu.org/gnu/gnu-keyring.gpg and gpg --verify --keyring ./gnu-keyring.gpg coreutils-8.29.tar.xz.sig. The previous commands outputted a warnings: This key is not certified with a trusted signature! However, since this is from an unrecognized source, the warning statement is justified.
+2. I made a temporary directory using mkdir temp. I then navigated to the coreutils directory and used ./configure --prefix=/u/ce/ugrad/dhruv/Desktop/CS35L/Assignment3/temp to check and make the makefile. I then ran the makefile using make && make install.
+3. I navigated to the temp directory to reproduce the bug. Both the ls -a -A and ls -A -a printed out . and .. as two of the directories, and this shouldn't happen, since ls -a -A should omit those two directories.
+4. I created a patch file in the coreutils directory using emacs patch.diff and copying the patch from the website. I then used patch -p1 < patch.diff to apply the patch.
+5. I built the fixed version without installing it into my temporary directory  using make.
+6. Now, when I used ls -a -A, the . and .. directories did not show up, indicating that the patch fixed the bug.

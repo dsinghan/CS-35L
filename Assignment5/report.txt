@@ -1,0 +1,45 @@
+1. I ran time cat temp.txt | ./sfrob and the output was
+real   0m0.003s
+user   0m0.000s
+sys    0m0.005s
+
+2. I ran time cat temp.txt | ./sfrobu and the output was
+real   0m9.057s
+user   0m2.816s
+sys    0m5.810s
+
+3. I ran time cat temp.txt | ./sfrob -f and the output was
+real   0m0.003s
+user   0m0.001s
+sys    0m0.003s
+
+4. I ran time cat temp.txt | ./sfrobu -f and the output was
+real   0m8.638s
+user   0m2.712s
+sys    0m5.758s
+
+5. ./sfrob and ./sfrob -f were the fastest, and ./sfrobu and ./sfrobu -f were the slowest
+
+6. I made a smaller file with 10 lines named temp2.txt
+
+7. I used time cat adam.txt | ./sfrob and the output was
+reall    0m0.005s
+user    0m0.000s
+sys     0m0.004s
+
+8. I used time cat adam.txt | ./sfrobu and the output was
+real     0m0.002s
+user    0m0.001s
+sys     0m0.003s
+
+	$ time cat adam.txt | ./sfrobs
+
+	real    0m0.006s
+	user    0m0.003s
+	sys     0m0.006s
+
+	$ time cat adam.txt | ./sfrobu -f
+
+	real    0m0.006s
+	user    0m0.002s
+	sys     0m0.003s

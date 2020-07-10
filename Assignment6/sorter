@@ -1,0 +1,11 @@
+#!/bin/bash
+	LC_ALL='C'
+
+	for x in "$(ls /usr/bin | awk 'NR%251 == 105125631%251')";
+	do
+		f=`which $x`
+		ldd $f
+	done |
+	grep so |
+	sed '/^\/usr\/bin/d' |
+	sort -u

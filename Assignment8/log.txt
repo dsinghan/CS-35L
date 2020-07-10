@@ -1,0 +1,55 @@
+Dhruv Singhania
+105125631
+Partner: Chris Baker
+
+1. I used ssh-keygen to generate the ssh key which returned:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+a9:10:76:0c:8a:0e:61:19:ab:32:79:94:04:98:a5:74 root@beaglebone
+The key's randomart image is:
++---[RSA 2048]----+
+|+B=E.            |
+|=*oo o           |
+|+.+ o o          |
+|+o . o   .       |
+|=.. .   S        |
+|.o   . .         |
+|      .          |
+|                 |
+|                 |
++-----------------+
+
+2. I used the following commands to create a user for my partner and provide him access:
+sudo useradd -d /home/guest -m chris
+sudo passwd chris
+cd /home/chris
+sudo mkdir .ssh
+sudo chown -R chris .ssh
+sudo chmod 700 .ssh
+
+3. I then use ifconfig to check the IP of my beaglebone: 10.97.85.134
+My partner's: 10.97.85.133
+
+4. I used ssh-copy-id -i dhruv@10.97.85.133 to copy the key to server which printed:
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+
+
+5. I used eval $(ssh-agent) and ssh-add to add keys to the server.
+It returned:
+Agent pid 1835
+
+6. I used ssh -X dhruv@10.97.85.133 to connect to the server, which printed:
+Debian GNU/Linux 8
+
+BeagleBoard.org Debian Image 2016-06-14
+
+Support/FAQ: http://elinux.org/Beagleboard:BeagleBoneBlack_Debian
+
+default username:password is [debian:temppwd]
+
+dhruv@10.97.85.133's password:
+
+
+7. I used xeyes and firefox to see if they worked on my partner's beaglebone, and they both worked. Xeyes displayed eyes that followed the cursor and firefox opened a firefox browser.

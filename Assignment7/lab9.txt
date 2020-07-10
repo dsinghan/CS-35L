@@ -1,0 +1,105 @@
+Dhruv Singhania
+105125631
+
+1. I got a copy of the Diffutils repository using git clone ~eggert/src/gnu/diffutils
+
+2. I got a log of changes to Diffutil's master branchand put it into a log using git log > git-log.txt
+
+3. I generated a list of tags and put it into a file using git tag > git-tags.txt
+
+4. I found the specified commit using emacs git-log.txt C-s "maint: quote" which resulted in 62ca21c8c1a5aa3488589dcb191a4ef04ae9ed4f
+I generated a patch for the commit using git format-patch -1 62ca21c8c1a5aa3488589dcb191a4ef04ae9ed4f --stdout > quote-patch.txt
+
+5. I checkout version 3.0 of Diffutils from my repository using git checkout v3.0
+
+6. I applied quote-patch.txt using patch -p1 < quote-patch.txt
+
+7. I got an overview of what happened using git status which resulted in
+HEAD detached at v3.0
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   NEWS
+        modified:   README
+        modified:   TODO
+        modified:   doc/diagmeet.note
+        modified:   ms/config.bat
+        modified:   ms/config.site
+        modified:   po/en.po
+        modified:   src/analyze.c
+        modified:   src/cmp.c
+        modified:   src/context.c
+        modified:   src/diff.c
+        modified:   src/diff.h
+        modified:   src/diff3.c
+        modified:   src/dir.c
+        modified:   src/ifdef.c
+        modified:   src/io.c
+        modified:   src/sdiff.c
+        modified:   src/side.c
+        modified:   src/system.h
+        modified:   src/util.c
+        modified:   tests/help-version
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        NEWS.orig
+        README-hacking.orig
+        README-hacking.rej
+        README.orig
+        README.rej
+        cfg.mk.orig
+        cfg.mk.rej
+        git-log.txt
+        git-tag.txt
+        ms/config.site.orig
+        quote-patch.txt
+        src/cmp.c.orig
+        src/context.c.orig
+        src/diff.c.orig
+        src/diff.c.rej
+        src/diff.h.orig
+        src/diff3.c.orig
+        src/diff3.c.rej
+        src/dir.c.orig
+        src/sdiff.c.orig
+        src/system.h.orig
+        src/util.c.orig
+        tests/help-version.orig
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+8. I studied the emacs functions.
+
+9. I reverted all the changes to files other than .c using C-x v u yes while in the file and I did this to all files.
+I undid all the changes to .c files other than character string constants using C-x v = C-c C-a y to all teh c files.
+
+10. I examined src/*.c.rej and copied rejected patches using find . -name "*.c.rej" and then within each file I used C-s ` and replaced it with '
+
+11. I removed all untracked files that were warned about using git clean -f
+
+12. I used git status which returned
+HEAD detached at v3.0
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   src/cmp.c
+        modified:   src/context.c
+        modified:   src/diff.c
+        modified:   src/diff3.c
+        modified:   src/dir.c
+        modified:   src/sdiff.c
+        modified:   src/util.c
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+I stored the patch using git diff > quote-3.0-patch.txt
+
+13. I built the resulting modified version of Diffutils using ./bootstrap and patch -p0 <../diffutils-gets.diff and ./configure and make and make check
+
+14. I did a sanity test using diffutils/src/diff -pru diffutils-3.0 diffutils-3.0-patch > quote-3.0-test.txt
+
+15. I used diff quote-3.0-test.txt quote-3.0-patch.txt to compare the contents of the files. There are only innoculous differences.

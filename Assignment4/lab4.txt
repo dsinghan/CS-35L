@@ -1,0 +1,25 @@
+Dhruv Singhania
+UID: 105125631
+1. I used the link on the website to download the coreutils with the bug.
+2. I used tar -xf coreutils-with-bug.tar.gz to untar the file.
+3. I used mkdir temp to create a directory to contain the coreutils with the bug.
+4. I used ./configure --prefix=/u/ce/ugrad/dhruv/Desktop/CS35L/Assignment4/temp inside the new directory to install the coreutils with the bug within the temp directory.
+5. I used make to build the executables, and it returned the following error:
+utimens.h:2:5: error: conflicting types for 'futimens'
+    2 | int futimens (int, char const *, struct timespec const [2]);
+      |     ^~~~~~~~
+In file included from utimecmp.h:25,
+                 from utimecmp.c:25:
+/usr/include/sys/stat.h:373:12: note: previous declaration of 'futimens' was here
+  373 | extern int futimens (int __fd, const struct timespec __times[2]) __THROW;
+      |            ^~~~~~~~]
+6. I used wget http://web.cs.ucla.edu/classes/fall19/cs35L/assign/coreutils.diff to download the patch to repair the error.
+7. I used patch -p0 <~/Desktop/CS35L/Assignment4/coreutils.diff within the coreutils-with-bug directory to apply the patch.
+8. I used make and make install to rebuild and install coreutils again, this time with no errors.
+9. I checked if the bug was there, using the code on the assignment page, and it was.
+10. I navigated to /coreutils-with-bug/src and used gdb ./ls to go through whatwas wrong with the code and figured out the function sort_files was responsible for sorting the files.
+11. I placed a breakpoint at the function using b sort_files and found that it calls compare_mtime which calls cmp_mtime which calls timespec_cmp, where the problem is.
+12. I think the problem was an overflow issue, since a big difference in times could overflow and make it seem negative instead of positive.
+13. I changed the code in my lab4.diff file to compare the times of files using < and > instead of finding the difference between them.
+14. I made a new timespec.h with edits and then used diff -u timespec.h newtimespec.h > lab4.diff to store the results of the difference in lab4.diff.
+15. I reran make and make install and checked if the bug was still there, and it wasn't.

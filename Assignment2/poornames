@@ -1,0 +1,55 @@
+#!/bin/bash
+
+#declare x which represents the directory and y which represents if it is recursive or not
+x="$1"
+y=0
+#if there are no arguments, x is the current directory
+if [ $# -eq 0 ]
+then
+    x="."
+#if there are >=3 arguments, print error message
+elif [ $# -ge 3 ]
+then
+    echo "Too many operands" >&2
+    exit 1
+#if there is 1 argument which is -r, then x is the current directory... else the argument is assumed to be x
+elif [ $# -eq 1 ]
+then
+    if [ $1 = "-r" ]
+    then
+	x="."
+	y=1
+    fi
+#if there are two arguments, make sure -r is the first argument and assume x is the second argument, otherwise print error message
+elif [ $# -eq 2 ]
+then
+    if [ $1 != "-r" ]
+    then
+	echo "Wrong order/use of operands" >&2
+	exit 1
+    fi
+    x="$2"
+    y=1
+fi
+#checks to see if x is a directory, print error message if no
+if [ ! -d "$x" ]
+then
+    echo "Operand isn't a directory" >&2
+    exit 1
+fi
+#if there is -r, then print all subdirectories as well
+if [ $y -eq 1 ]
+then
+    find $x -mindepth 1 \( -type d -printf "%p/\n" , -type f -print \) | #find all files within directory and subdirectory, add a / after all directories
+	grep -v '\/[A-Za-z\_][A-Za-z\_\.\-]\{,13\}$'| #remove all the correct file names
+	sort -u -f #sort and ignore case-insensitive duplicates
+    find $x -mindepth 1 \( -type d -printf "%p/\n" , -type f -print \) |
+	uniq -D -i #find again, but this time print the duplicates
+#if there is no -r, then only print the given directory
+else
+    find $x -mindepth 1 -maxdepth 1 \( -type d -printf "%p/\n" , -type f -print \) | #find all files only within directory, add a / after all directories
+	grep -v '\/[A-Za-z\_][A-Za-z\_\.\-]\{,13\}$' | #remove all the correct file names
+	sort -u -f #sort and ignore case-insensitive duplicates
+    find $x -mindepth 1 -maxdepth 1 \( -type d -printf "%p/\n" , -type f -print \) |
+	uniq -D -i #find again, but this time print the duplicates
+fi

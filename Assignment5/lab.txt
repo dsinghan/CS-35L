@@ -1,0 +1,100 @@
+Dhruv Singhania
+105125631
+
+1. I used gcc -o tr2b tr2b.c to compile the program.
+
+2. I used gcc -o tr2u tr2u.c to compile the program.
+
+3. I used dd if=/dev/urandom of=temp.txt bs 5000001 count=1 to create a file that contains at least 5000000 bytes.
+I then used strace -c ./tr2b "ab" "cd" < temp.txt > output.txt to test copying one file to another using tr2b.
+The output was:
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 60.37    0.001124           2       611           write
+ 31.15    0.000580           1       613           read
+  2.79    0.000052           6         9           mmap
+  1.77    0.000033           8         4           mprotect
+  1.02    0.000019           5         4           fstat
+  0.81    0.000015           8         2           open
+  0.59    0.000011          11         1           munmap
+  0.43    0.000008           8         1         1 access
+  0.32    0.000006           3         2           close
+  0.32    0.000006           6         1           execve
+  0.21    0.000004           4         1           brk
+  0.21    0.000004           4         1           arch_prctl
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.001862                  1250         1 total
+I then used strace -c ./tr2u "ab" "cd" < temp.txt > output.txt to test copying one file to another using tr2u.
+The output was:
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 54.67    1.277419           6    212757           write
+ 45.32    1.058948           5    212758           read
+  0.00    0.000040          10         4           mprotect
+  0.00    0.000023          23         1           munmap
+  0.00    0.000000           0         2           open
+  0.00    0.000000           0         2           close
+  0.00    0.000000           0         2           fstat
+  0.00    0.000000           0         7           mmap
+  0.00    0.000000           0         1           brk
+  0.00    0.000000           0         1         1 access
+  0.00    0.000000           0         1           execve
+  0.00    0.000000           0         1           arch_prctl
+------ ----------- ----------- --------- --------- ----------------
+100.00    2.336430                425537         1 total
+tr2u takes a lot more time since it has a lot more system calls.
+I then used strace -c ./tr2b "ab" "cd" < temp.txt to test copying the file to the terminal using tr2b.
+The output was:
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+  96.45   2.424310           3    548847           write
+  0.15    0.003174           6       583           read
+  0.00    0.000000           0         1           open
+  0.00    0.000000           0         2           close
+  0.00    0.000000           0         6           fstat
+  0.00    0.000000           0         7           mmap
+  0.00    0.000000           0         3           mprotect
+  0.00    0.000000           0         1           munmap
+  0.00    0.000000           0         1           brk
+  0.00    0.000000           0         1         1 access
+  0.00    0.000000           0         1           execve
+  0.00    0.000000           0         1           arch_prctl
+------ ----------- ----------- --------- --------- ----------------
+100.00    2.453661                524832         1 total
+I then used strace -c ./tr2u "ab" "cd" < temp.txt to test copying the file to the terminal using tr2u.
+The output was:
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 55.38   35.499522           7   5000001           write
+ 44.62   28.605993           6   5000003           read
+  0.00            0.000078          11         7           mmap
+  0.00            0.000057          14         4           mprotect
+  0.00    0.000029          15         2           open
+  0.00    0.000023          23         1           munmap
+  0.00    0.000019          19         1           brk
+  0.00    0.000015          15         1           arch_prctl
+  0.00    0.000014           7         2           close
+  0.00    0.000014           7         2           fstat
+  0.00    0.000014          14         1         1 access
+  0.00    0.000000           0         1           execve
+------ ----------- ----------- --------- --------- ----------------
+100.00   64.105778              10000026         1 total
+The number of system calls for tr2b increases a lot, and tr2u stays the same, but tr2b is still a lot faster.
+
+4. I used time ./tr2b "ab" "cd" < temp.txt > output.txt and the output was:
+real    0m0.353s
+user    0m0.295s
+sys     0m0.013s
+I used time ./tr2u "ab" "cd" < temp.txt > output.txt and the output was:
+real    0m12.268s
+user    0m3.301s
+sys     0m8.909s
+I used time ./tr2b "ab" "cd" < temp.txt and the output was:
+real    0m3.142s
+user    0m0.586s
+sys     0m0.845s
+I used time ./tr2u "ab" "cd" < temp.txt and the output was:
+real    0m23.546s
+user    0m6.641s
+sys     0m16.633s
+tr2b is a lot faster thatn tr2u.

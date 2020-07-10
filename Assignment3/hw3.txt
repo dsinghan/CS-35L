@@ -1,0 +1,7 @@
+Dhruv Singhania
+UID: 105125631
+1. The patch improved the performance of ls, because by convention, the last option in a command should overrule any other conflicting option, and the patch restored that convention to ls, making it correct.
+2. New versions of Coreutils would be based on the bugged version of ls, so the patch might disrupt new versions from correctly updating/adjusting the ls command.
+3. The script threw the following error message: IndexError: list index out of range. This is because the script prints a random line from a file, and since /dev/null is empty, there are no lines to print.
+4. The script threw the following error message when run using Python 3: SyntaxError: invalid syntax. This is because there is a difference in syntax between Python 2 and Python 3, and since the script is written in Python 2, it cannot be invoked in Python 3.
+5. When I run the shuf.py script with Python 2 instead of Python 3, the script still runs correctly, so it seems that Python 3 is still compatible with Python 2.

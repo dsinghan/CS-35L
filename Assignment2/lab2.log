@@ -1,0 +1,21 @@
+Dhruv Singhania
+1. I first used locale to check if I was in standard C, and I wasn't, so I used the command export LC_ALL='C' to change it.
+2. I created my words file by using the command sort /usr/share/dict/words > words to put the results of sorting /usr/share/dict/words into my file.
+3. I used the command wget http://web.cs.ucla.edu/classes/fall19/cs35L/assign/assign2.html -O web.txt to put the HTML contents of the assignment webpage into a file called web.txt.
+4. < web.txt tr -c 'A-Za-z' '[\n*]' changed all the non-alphabet characters in the file to new line characters.
+5. < web.txt tr -cs 'A-Za-z' '[\n*]' did the same thing as above, but if there were multiple new line characters in a row, it would keep only one.
+6. < web.txt tr -cs 'A-Za-z' '[\n*]' | sort did the same thing as above, but sorted the resulting contents
+7. < web.txt tr -cs 'A-Za-z' '[\n*]' | sort -u did the same thing as above, but if there were multiple instances of the same word, it would keep only one.
+8. tr -cs 'A-Za-z' '[\n*]' | sort -u | comm -words did the same thing as above, but printed the comparison between web.txt and the words file.
+9. tr -cs 'A-Za-z' '[\n*]' | sort -u | comm -23 - words # ENGLISHCHECKER did the same thing as above, but printed only the lines unique to web.txt (so basically the non-english words according to the word file in web.txt).
+10. I used the command wget https://www.mauimapp.com/moolelo/hwnwdshw.htm -O hwords to put the HTML contents of the Hawaiian dictionary provided into the file hwords.
+11. I then created a script buildwords that took the webpage and converted it into a Hawaiian dictionary.
+12. I first used sed to remove the ?, <u> and </u>.
+13. I then used tr to covert everything to lowercase.
+14. I then used sed to remove any lines that had non-hawaiian letters in it.
+15. I then used tr to separate the different hawaiian words on the same line to different lines.
+16. I then used sort to sort the remaining words.
+17. I used the command cat web.txt | tr -cs 'A-Za-z' '[\n*]' | tr '[:upper:]' '[:lower:]' | sort -u | comm -23 - words | wc # ENGLISHCHECKER returned 49, so it caught 49 words that weren't recognized by the english dictionary
+18. I used the command cat web.txt | tr -cs 'A-Za-z' '[\n*]' | tr '[:upper:]' '[:lower:]' | sort -u | comm -23 - hwords2 | wc # HAWAIICHECKER, where hwords2 was the result of cat hwords | ./buildwords, and it caught 545 words that weren't recognized by the english dictionary
+19. I used the command comm -23 to find the distinct words that ENGLISHCHECKER reports as misspelled but HAWAIIANCHECKER doesn't, which was 60 words
+20. I used the command comm -23 again to find the distinct words that HAWAIIANCHECKER reports as misspelled but ENGLISHCHECKER doesn't, which was 408 words

@@ -1,0 +1,20 @@
+Dhruv Singhania
+105125631
+
+2. I checkout version 3.0 using git checkout v3.0 -b quote
+
+3. I install this change using patch -p1 < quote-3.0-patch.txt
+
+4. I learned the emacs functions
+
+5. I used the emacs function to compose changelog entry for the patch using emacs C-x 4 a
+
+6. I commit my changes using git add . and git commit -F ChangeLog
+
+7. I generate a file formatted-patch.txt using git format-patch -1 HEAD --stdout >../formatted-patch.txt
+
+8. I checked my partner's patch using git checkout v3.0 and git checkout -b partner and git am formatted-patch.txt and finally ./bootstrap through make check. It worked fine.
+
+9. I verified my ChangeLog entry works by using make distdir and emacs ChangeLog
+
+10. I used gitk to find the newest merge that is not newer than 2015-01-25.

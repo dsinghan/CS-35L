@@ -1,0 +1,60 @@
+Dhruv Singhania
+105125631
+
+1. First I used cd to navigate to /u/cs/fac/eggert/src/gnu/emacs-CS-35L.
+Then I used du -sh which returned 509MB, the disk space of the working files in the directory.
+Then I used du -sh .git which returned 350MB, the disk space of the Git repository.
+I used the du -h to get a list of the files that consume the most repository space, which returned ./objects as the largest file.
+
+
+2. I used git branch | wc and git branch -r | wc which returned 176 branches are local and 177 branches are remote.
+
+3. 1 repository is remote to this repository.
+I used git remote -v and it resulted in https://git.savannag.gnu.org/git/emacs.git
+
+4. I used git for-each-ref --count=10 --sort=-commiterdate refs/heads/ --format='%(refname:short)' which resulted in:
+fs/heads/ --format='%(refname:short)'
+master
+scratch/joaot/make-completion-at-point-function
+feature/windows-with-utils
+scratch/completion-api
+scratch/a-modest-completion-redesign-proposal
+scratch/fido-mode
+feature/gnus-select2
+feature/extend_face_id
+scratch/jit-lock-antiblink-cleaned-up
+emacs-26
+
+5. I used git rev-list --count master which resulted in 139583.
+
+6. I used git rev-list --all --count which resulted in 143910, thus the percentage of commits in any branch that are also in the master branch is about 97%.
+
+7. I used git shortlog -sn --since=2013-01-01 which resulted in these first 10:
+  3691  Eli Zaretskii
+  3644  Glenn Morris
+  3604  Paul Eggert
+  1806  Lars Ingebrigtsen
+  1784  Stefan Monnier
+  1571  Michael Albinus
+   619  Dmitry Gutov
+   576  Noam Postavsky
+   471  Alan Mackenzie
+   469  Juri Linkov
+
+8.
+	98ac3
+	  ^
+	abcb2
+	  ^
+	49cd5
+	  ^
+  |---->00e4e
+82073     ^
+  ^	0c06b
+  |	  ^
+  |	5490c
+  |	  ^
+  |	625ce
+  |	  ^
+  |---->977cd
+4ea37

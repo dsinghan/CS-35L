@@ -1,0 +1,48 @@
+1. man -k
+I used man man to answer this question
+
+2. /usr/bin/mv and /usr/bin/sh
+I used which mv and which sh to answer this question
+
+3. ar(1): create, modify and extract from archives
+ar(1p): create and maintain library archives
+pr(1): convert text files for printing
+pr(1p): print files
+tr(1): translate or delete characters
+tr(1p): translate characters
+I used man -k^.r$ to answer the question
+
+4. /etc/alternatives/emacs
+I used ls -l /usr/bin/emacs to answer this question
+
+5. /usr/bin/gcc is version 4.8.5 and the plain gcc program is version 9.2.0
+They are different programs because the plain gcc program is owned by Prof. Eggert and the /usr/bin/gcc is the built in and original program.
+I used /usr/bin/gcc -v, gcc -v, ls -l /usr/local/cs/bin/gcc, and ls -l /usr/bin/gcc to answer this question
+
+6. It gives the user added permissions of setting user or group ID on execution and execution. It also takes away the permission to write for other users not in the file's group. I used man chmod to answer this question.
+
+7. /usr/local/cs, /usr/local/cs/src/bison, /usr/local/cs/src/bison/RCS, /usr/local/cs/src/gnuplot, /usr/local/cs/src/gnuplot/RCS, and 175 total
+I used find /usr/local/cs -type d -mtime -28, and find /usr/local/cs -type d -mtime -28 -print | grep -c / to answer this question
+
+8. /usr/local/cs/src/OLD/vc-dwim/.#INSTALL, /usr/local/cs/mpc-1.0.1/lib/libmpc.so.3, /usr/local/cs/mpc-1.0.1/lib/libmpc.so, /usr/local/cs/include/mpc.h, /usr/local/cs/include/c++/5.2.0 and 2762 total
+I used which find, find /usr/local/cs -type l, and find /usr/local/cs -type l -print | grep -c / to answer this question
+
+9. librom1394.so.0.3.0
+I used ls /usr/lib64 -lt to answer this question
+
+10. Locale gets its data from /usr/lib/locale/locale-archive and /usr/share/i18n/locales.
+I used man locale to answer this question
+
+11. downcase-dwim, downcase-region, downcase-word
+I used C-h a downcase to answer this question
+
+12. C-M-r does an incremental search backward for a regular expression, C-M-s does an incremental search forward for a regular expression, C-M-t transposes two balanced expressions, C-M-u moves backward out of one level of parenthesis, C-M-v scrolls the other window upward the specified amount of lines
+I used C-h c C-M-r through C-M-v to answer this question
+
+13. Keyboard-quit
+I used C-h c C-g to answer this question
+
+14. The yank function pastes the most recently killed text inside emacs.
+I used C-h f 'yank' to answer this question.
+
+15. The difference is that using ls -l brings up color coded file names for all the files, and emacs shows more files than ls -l, maybe being able to show hidden files. I used C-x d /usr/bin in emacs and ls -l to answer this question.
